@@ -1,5 +1,22 @@
 'use strict';
 
+/**
+ * This function is flattening input object.
+ * Returns flat object with depth equals one.
+ *
+ * @param {object} obj - Input object to be flattened
+ * @return {object} Flattened object
+ *
+ * @example
+ * 
+ *        plainify({
+ *          deep: {
+ *            a: 111,
+ *            b: 111,
+ *          }
+ *        })
+ */
+
 const plainify = obj => {
   let inner_obj_exists = true
 
