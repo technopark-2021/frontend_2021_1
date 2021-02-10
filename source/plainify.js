@@ -8,6 +8,7 @@
  * @return {object} Flattened object
  *
  * @example
+ * // returns {'deep.a': 111, 'deep.b': 111}
  * 
  *        plainify({
  *          deep: {
