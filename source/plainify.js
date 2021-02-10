@@ -18,27 +18,32 @@
  *        })
  */
 
-const plainify = obj => {
-  let inner_obj_exists = true
-
-  while (inner_obj_exists) {
-    let new_obj = Object()
-    inner_obj_exists = false
-
-    Object.entries(obj).forEach(([key, value]) => {
-      if (typeof value === 'object') {
-        inner_obj_exists = true
-        Object.entries(value).forEach(([in_key, in_value]) => {
-          let new_key = `${key}.${in_key}`
-          new_obj[new_key] = in_value
-        })
-      } else {
-        new_obj[key] = value
-      }
-    })
-
-    obj = new_obj
+const plainify = (obj) => {
+  if (typeof obj !== 'object') {
+    throw "Input value is not an object!"
   }
 
-  return obj
+  return Object.entries(obj).reduce(cutObjDepth, obj)
 };
+
+const cutObjDepth = (prev, [key, value]) => {
+  if (typeof value === 'object' && value !== null) {
+    value = Object.entries(value).reduce(
+      (in_prev, [in_key, in_value]) => {
+        in_prev[`${key}.${in_key}`] = in_value
+        return in_prev
+      }, 
+      {}
+    )
+
+    delete prev[key]
+
+    prev = Object.keys(prev).length === 0 ? {...value} : {...prev, ...value}
+
+    prev = Object.entries(prev).reduce(cutObjDepth, prev)
+  } else {
+    prev[key] = value
+  }
+  
+  return prev
+}
