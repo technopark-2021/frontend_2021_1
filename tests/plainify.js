@@ -98,4 +98,29 @@ QUnit.module('Тестируем функцию plainify', function () {
 
     assert.deepEqual(plainify(nested3), plain3)
 	});
+	QUnit.test('plainify правильно обрабатывает невалидные данные', function (assert) {
+    assert.throws(() => {plainify('helloworld')}, 
+      Error('Input value is not an object!')
+    )
+
+    assert.throws(() => {plainify(new Date())}, 
+      Error('Input value is not an object!')
+    )
+
+    assert.throws(() => {plainify(new Set())},
+      Error('Input value is not an object!')
+    )
+
+    assert.throws(() => {plainify(new Array())},
+      Error('Input value is not an object!')
+    )
+
+    assert.throws(() => {plainify(null)},
+      Error('Input value is not an object!')
+    )
+
+    assert.throws(() => {plainify(undefined)},
+      Error('Input value is not an object!')
+    )
+  });
 });

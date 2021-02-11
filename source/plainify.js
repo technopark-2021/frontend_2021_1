@@ -20,10 +20,10 @@
 
 const plainify = (obj) => {
   if (!isObject(obj)) {
-    throw "Input value is not an object!"
+    throw new Error('Input value is not an object!')
   }
 
-  return Object.entries(obj).reduce((acc, item) => ({...acc, ...cutObjDepth(item)}), {})
+  return Object.entries(obj).reduce((acc, item) => ({ ...acc, ...cutObjDepth(item) }), {})
 };
 
 const cutObjDepth = (item) => {
@@ -33,8 +33,7 @@ const cutObjDepth = (item) => {
     return {[key]: value}
   }
 
-  return Object.entries(plainify(value)).reduce(
-    (acc, [in_key, in_value]) => ({
+  return Object.entries(plainify(value)).reduce((acc, [in_key, in_value]) => ({
       ...acc, 
       [`${key}.${in_key}`]: in_value
     }), 
@@ -43,5 +42,5 @@ const cutObjDepth = (item) => {
 }
 
 const isObject = (value) => {
-  return Object.prototype.toString.call(value) === '[object Object]'
+  return value != null && value.constructor === Object
 }
