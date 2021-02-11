@@ -27,24 +27,19 @@ const plainify = (obj) => {
 };
 
 const cutObjDepth = (item) => {
-  const key = item[0]
-  let value = item[1]
+  const [key, value] = item
 
-  if (isObject(value)) {
-    value = plainify(value)
-
-    Object.entries(value).forEach(
-      (element) => {
-        const [in_key, in_value] = element
-        value[`${key}.${in_key}`] = in_value
-        delete value[in_key]
-      }
-    )
-
-    return value
+  if (!isObject(value)) {
+    return {[key]: value}
   }
 
-  return {[key]: value}
+  return Object.entries(plainify(value)).reduce(
+    (acc, [in_key, in_value]) => ({
+      ...acc, 
+      [`${key}.${in_key}`]: in_value
+    }), 
+    {}
+  )
 }
 
 const isObject = (value) => {
