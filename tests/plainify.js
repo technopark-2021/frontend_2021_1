@@ -2,7 +2,7 @@
 
 QUnit.module('Тестируем функцию plainify', function () {
 	QUnit.test('plainify работает правильно', function (assert) {
-		assert.deepEqual(plainify({foo: 'bar', baz: 42}), {'foo': 'bar', 'baz': 42});
+		assert.deepEqual(plainify({ foo: 'bar', baz: 42 }), { 'foo': 'bar', 'baz': 42 });
 
 		const nested1 = {
 			deep: {
@@ -98,28 +98,28 @@ QUnit.module('Тестируем функцию plainify', function () {
 
     assert.deepEqual(plainify(nested3), plain3)
 	});
-	QUnit.test('plainify правильно обрабатывает невалидные данные', function (assert) {
-    assert.throws(() => {plainify('helloworld')}, 
+  QUnit.test('plainify правильно обрабатывает невалидные данные', function (assert) {
+    assert.throws(() => { plainify('helloworld') }, 
       Error('Input value is not an object!')
     )
 
-    assert.throws(() => {plainify(new Date())}, 
+    assert.throws(() => { plainify(new Date()) }, 
       Error('Input value is not an object!')
     )
 
-    assert.throws(() => {plainify(new Set())},
+    assert.throws(() => { plainify(new Set()) },
       Error('Input value is not an object!')
     )
 
-    assert.throws(() => {plainify(new Array())},
+    assert.throws(() => { plainify(new Array()) },
       Error('Input value is not an object!')
     )
 
-    assert.throws(() => {plainify(null)},
+    assert.throws(() => { plainify(null) },
       Error('Input value is not an object!')
     )
 
-    assert.throws(() => {plainify(undefined)},
+    assert.throws(() => { plainify(undefined) },
       Error('Input value is not an object!')
     )
   });
