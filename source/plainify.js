@@ -43,5 +43,5 @@ const cutObjDepth = (item) => {
 };
 
 const isObject = (value) => {
-  return value != null && value.constructor === Object;
+  return Object.prototype.toString.call(value) === '[object Object]'
 };
